@@ -1,0 +1,23 @@
+logging:
+  config: classpath:logback-winner.xml
+
+server:
+  port: 8761
+
+eureka: 
+  environment: dev
+  datacenter: cloud
+  server: 
+    #关闭自我保护，在正式环境删除此选项
+    enable-self-preservation: false 
+    #清理间隔,单位毫秒
+    eviction-interval-timer-in-ms: 60000 
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    hostname: localhost
+  client:
+    #通过eureka.client.registerWithEureka：false和fetchRegistry：false来表明自己是一个eureka server.
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
